@@ -15,3 +15,10 @@ export function mealByLetter({commit}, payload) {
             console.log('data', data.meals)
         })
 }
+export function mealByIngredient({commit}, payload){
+    axiosClient.get(`/filter.php?i=${payload}`)
+        .then(({data}) =>{
+            commit('setMealByIngredient', data.meals)
+            console.log('setMealByIngredient', data.meals)
+        })
+}

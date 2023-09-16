@@ -4,6 +4,7 @@ import MealList from "@/views/MealList/MealList.vue";
 import MealBySearch from "@/views/meal-by-search/MealBySearch.vue";
 import MealByLetters from "@/views/meal-by-letters/MealByLetters.vue";
 import MealByIngredients from "@/views/meal-by-ingredients/MealByIngredients.vue";
+import IngredientList from "@/views/meal-by-ingredients/ingredient-lists/IngredientList.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,10 +31,14 @@ const router = createRouter({
     },
     {
       path: '/meal-by-ingredients',
+      name: 'ingredientList',
+      component: IngredientList
+    },
+    {
+      path: '/meal-by-ingredients/:ingredient?',
       name: 'mealByIngredients',
       component: MealByIngredients
-    },
-
+    }
   ]
 })
 

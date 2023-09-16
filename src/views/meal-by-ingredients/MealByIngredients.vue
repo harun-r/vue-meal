@@ -1,13 +1,23 @@
 <template>
-  <div class="p-8">
-    <Ingredients :ingredients="ingredients"/>
+  <main-content>
+    <pre>{{ingredient}}</pre>
 
-
-  </div>
+    <meal-cards :meals="meals"/>
+  </main-content>
 </template>
 <script setup>
-import Ingredients from "@/components/Ingredients/Ingredients.vue";
-import {ref} from "vue";
+import MainContent from "@/components/layouts/main-content/mainContent.vue";
+import {onMounted, ref} from "vue";
+import {useRoute} from "vue-router";
+import store from "@/store";
+import MealCards from "@/components/meal-cards/MealCards.vue";
+const route = useRoute()
+const ingredient = route.params.ingredient
 
-const ingredients = ref([])
+const meals = store.state.mealByIngredient
+
+onMounted(()=>{
+  store.dispatch('mealByIngredient', route.params.ingredient)
+})
+
 </script>
