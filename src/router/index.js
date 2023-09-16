@@ -24,7 +24,7 @@ const router = createRouter({
       component: MealBySearch
     },
       {
-      path: '/meal-by-letter',
+      path: '/meal-by-letter/:letter?',
       name: 'mealByLetters',
       component: MealByLetters
     },
