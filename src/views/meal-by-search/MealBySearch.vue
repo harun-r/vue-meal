@@ -1,29 +1,31 @@
 <template>
   <main-content>
-    <Search :value="searchKey"/>
+    <Search v-model="searchKey" @changeInput="searchMeals"/>
     <meal-cards :meals="meals"/>
   </main-content>
 </template>
 
 <script setup>
 import Search from "@/components/forms/search/Search.vue";
-import {onMounted, ref} from "vue";
-import axiosClient from "@/axiosClient";
+import {computed, onMounted, ref} from "vue";
 import MealCards from "@/components/meal-cards/MealCards.vue";
 import MainContent from "@/components/layouts/main-content/mainContent.vue";
+import store from "@/store";
 
 const searchKey = ref('')
 
-const meals = ref([])
+const meals = computed(() => store.state.mealBySearch)
+
+function searchMeals() {
+  if (searchKey.value) {
+    store.dispatch('mealBySearchKey', searchKey.value)
+  } else {
+    store.commit('setMealBySearchKey', [])
+  }
+}
+
 onMounted(() => {
-  axiosClient.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchKey.value}`)
-      .then(res => {
-        console.log(res)
-        meals.value = res.data.meals
-      })
-      .catch(err => {
-        console.log(err)
-      })
+  searchMeals()
 })
 
 </script>
